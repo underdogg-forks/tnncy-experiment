@@ -38,7 +38,6 @@ class HostnamesTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
             ])
             ->recordActions([
                 EditAction::make(),

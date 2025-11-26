@@ -33,16 +33,15 @@ class PermissionResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListPermissions::route('/'),
+            'index'  => ListPermissions::route('/'),
             'create' => CreatePermission::route('/create'),
-            'edit' => EditPermission::route('/{record}/edit'),
+            'edit'   => EditPermission::route('/{record}/edit'),
         ];
     }
 }

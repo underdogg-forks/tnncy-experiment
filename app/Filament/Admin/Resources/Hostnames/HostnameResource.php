@@ -33,16 +33,15 @@ class HostnameResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListHostnames::route('/'),
+            'index'  => ListHostnames::route('/'),
             'create' => CreateHostname::route('/create'),
-            'edit' => EditHostname::route('/{record}/edit'),
+            'edit'   => EditHostname::route('/{record}/edit'),
         ];
     }
 }
