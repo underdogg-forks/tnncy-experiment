@@ -89,7 +89,7 @@ class UserControllerTest extends TestCase
             'name' => 'New User',
             'email' => 'newuser@example.com',
             'password' => Hash::make('password123'),
-            'selectedPermissons' => [$permission->id],
+            'selectedPermissions' => [$permission->id],
         ]);
 
         $response->assertStatus(201);

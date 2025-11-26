@@ -40,7 +40,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $permissions = Permission::whereIn('id', $request->selectedPermissons)->get();
+        $permissions = Permission::whereIn('id', $request->selectedPermissions)->get();
         $user = User::create($request->all());
         $user->givePermissionTo($permissions);
         return $user;
