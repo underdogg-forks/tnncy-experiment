@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
-use Illuminate\Support\Str;
+use App\Models\System\Permission;
 use App\Models\System\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UsersSeeder extends Seeder
 {
@@ -14,15 +14,23 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        for ($x = 0; $x <= 5; $x++) {
-            $faker = Faker::create();
-            User::create([
-                'name' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
+        $permissions = Permission::where('guard_name', 'system')->get();
+
+        $email           = env('SEED_ADMIN_EMAIL', 'admin_' . Str::random(6) . '@local.test');
+        $isProduction    = app()->environment('production');
+        $defaultPassword = $isProduction ? null : 'password';
+        $password        = env('SEED_ADMIN_PASSWORD', $defaultPassword);
+        $hashedPassword  = $password ? \Illuminate\Support\Facades\Hash::make($password) : null;
+
+        $user = User::updateOrCreate(
+            ['email' => $email],
+            [
+                'name'              => env('SEED_ADMIN_NAME', 'Admin Name'),
                 'email_verified_at' => now(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'remember_token' => Str::random(10),
-            ]);
-        }
+                'password'          => $hashedPassword,
+                'remember_token'    => Str::random(10),
+            ]
+        );
+        $user->syncPermissions($permissions);
     }
 }

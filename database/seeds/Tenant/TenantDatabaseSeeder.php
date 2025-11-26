@@ -3,6 +3,7 @@
 namespace Database\Seeds\Tenant;
 
 use Illuminate\Database\Seeder;
+use TenantPermissionsSeeder;
 
 class TenantDatabaseSeeder extends Seeder
 {
@@ -13,6 +14,6 @@ class TenantDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(\TenantUsersSeeder::class);
+        $this->call(TenantPermissionsSeeder::class);
     }
 }

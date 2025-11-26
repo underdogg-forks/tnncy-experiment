@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -14,7 +13,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard'     => 'web',
         'passwords' => 'users',
     ],
 
@@ -37,15 +36,30 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            'driver'   => 'session',
             'provider' => 'users',
         ],
 
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+        'customer' => [
+            'driver'   => 'session',
+            'provider' => 'customer',
         ],
+
+        'tenant' => [
+            'driver'   => 'jwt',
+            'provider' => 'tenant-users',
+        ],
+
+        'system' => [
+            'driver'   => 'jwt',
+            'provider' => 'system-users',
+        ],
+
+        // 'api' => [
+        //     'driver' => 'jwt',
+        //     'provider' => 'users',
+        //     'hash' => false,
+        // ],
     ],
 
     /*
@@ -66,9 +80,26 @@ return [
     */
 
     'providers' => [
+        // Used by the 'web' guard for legacy/session-based authentication (admin panel, etc)
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model'  => App\Models\System\User::class,
+        ],
+
+        // Used by the 'system' guard for JWT-based API authentication (system-level operations)
+        'system-users' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\System\User::class,
+        ],
+
+        'tenant-users' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\Tenant\User::class,
+        ],
+
+        'customer' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\System\Customer::class,
         ],
 
         // 'users' => [
@@ -95,8 +126,8 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
+            'table'    => 'password_resets',
+            'expire'   => 60,
             'throttle' => 60,
         ],
     ],
@@ -113,5 +144,4 @@ return [
     */
 
     'password_timeout' => 10800,
-
 ];

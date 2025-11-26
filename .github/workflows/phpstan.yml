@@ -1,0 +1,41 @@
+name: PHPStan
+
+on:
+  workflow_dispatch:
+
+jobs:
+  phpstan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Create PHPStan config if not exists
+        run: |
+          if [ ! -f phpstan.neon ]; then
+            cat > phpstan.neon << 'EOF'
+          includes:
+              - vendor/larastan/larastan/extension.neon
+
+          parameters:
+              level: 5
+              paths:
+                  - app
+              excludePaths:
+                  - app/Console/Kernel.php
+          EOF
+          fi
+
+      - name: Run PHPStan
+        run: ./vendor/bin/phpstan analyse --memory-limit=2G

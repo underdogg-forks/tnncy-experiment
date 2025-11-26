@@ -1,0 +1,118 @@
+<?php
+
+namespace App\Http\Controllers\System;
+
+use App\Models\System\Permission;
+use App\Models\System\User;
+use Illuminate\Http\Request;
+
+class UserBasicController
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function index()
+    {
+        // $permission = Permission::find(1);
+        // $user = User::with('permissions')->find(1);
+        // dd($user->hasPermissionTo($permission));
+        return User::all();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name'                  => 'required|string|max:255',
+            'email'                 => 'required|email|unique:users,email',
+            'password'              => 'required|string|min:8',
+            'selectedPermissions'   => 'array',
+            'selectedPermissions.*' => 'exists:permissions,id',
+        ]);
+        $permissions = Permission::whereIn('id', $validated['selectedPermissions'] ?? [])->get();
+        $user        = User::create([
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
+        ]);
+        $user->givePermissionTo($permissions);
+
+        return $user;
+    }
+
+    /**
+     * Show the profile for the given user.
+     *
+     * @param int $id
+     *
+     * @return array
+     */
+    public function show($id)
+    {
+        $user = $this->getUser($id);
+
+        return $user;
+    }
+
+    /**
+     * Show the profile for the given user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name'          => 'sometimes|string|max:255',
+            'email'         => 'sometimes|email|unique:users,email,' . $id,
+            'password'      => 'sometimes|string|min:8',
+            'permissions'   => 'array',
+            'permissions.*' => 'exists:permissions,id',
+        ]);
+
+        $permissions = Permission::whereIn('id', $request->permissions)->get();
+        $user        = User::find($id);
+        if ( ! $user) {
+            abort(404, 'User not found');
+        }
+        $user->update($validated);
+        $user->syncPermissions($permissions);
+
+        return $user;
+    }
+
+    /**
+     * Show the profile for the given user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        if ( ! $user) {
+            abort(404, 'User not found');
+        }
+        $user->syncPermissions([]);
+        $user->delete();
+
+        return 'Deleted';
+    }
+
+    private function getUser($id)
+    {
+        $user = User::find($id);
+        if ( ! $user) {
+            abort(404, 'User not found');
+        }
+        $permissions = $user->getAllPermissions()->pluck('id');
+
+        return ['user' => $user, 'permissions' => $permissions];
+    }
+}
