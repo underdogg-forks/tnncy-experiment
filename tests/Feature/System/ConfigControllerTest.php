@@ -3,6 +3,7 @@
 namespace Tests\Feature\System;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ConfigControllerTest extends TestCase
@@ -10,43 +11,51 @@ class ConfigControllerTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test that checkTenant returns false when not in tenant context.
-     *
-     * @return void
+     * It returns false when not in tenant context.
      */
-    public function test_check_tenant_returns_false_in_system_context()
+    #[Test]
+    public function it_returns_false_when_not_in_tenant_context()
     {
+        // Arrange
+        // No setup needed
+
+        // Act
         $response = $this->getJson('/api/checkTenant');
 
+        // Assert
         $response->assertStatus(200);
         $response->assertExactJson(false);
     }
 
     /**
-     * Test that checkTenant endpoint is accessible without authentication.
-     *
-     * @return void
+     * It allows access to checkTenant endpoint without authentication.
      */
-    public function test_check_tenant_is_accessible_without_authentication()
+    #[Test]
+    public function it_allows_access_to_check_tenant_endpoint_without_authentication()
     {
+        // Arrange
+        // No setup needed
+
+        // Act
         $response = $this->getJson('/api/checkTenant');
 
+        // Assert
         $response->assertStatus(200);
     }
 
     /**
-     * Test that checkTenant returns true when in tenant context.
-     *
-     * @return void
+     * It returns true when in tenant context.
      */
-    public function test_check_tenant_returns_true_in_tenant_context()
+    #[Test]
+    public function it_returns_true_when_in_tenant_context()
     {
+        // Arrange
+        // ...setup tenant context...
+
+        // Act
         $this->markTestSkipped('Testing tenant context requires multi-tenant setup with hostname configuration');
 
-        // Note: To test tenant context, we would need to:
-        // 1. Create a Website and Hostname
-        // 2. Set up the tenant database
-        // 3. Make a request with the tenant hostname
-        // This requires full multi-tenant infrastructure
+        // Assert
+        // ...assertions would go here...
     }
 }

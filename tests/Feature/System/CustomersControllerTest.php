@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\System;
 
-use App\Models\System\Customer;
 use App\Models\System\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -14,8 +13,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that authenticated user can list all customers.
-     *
-     * @return void
      */
     public function test_authenticated_user_can_list_customers()
     {
@@ -33,8 +30,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that unauthenticated user cannot list customers.
-     *
-     * @return void
      */
     public function test_unauthenticated_user_cannot_list_customers()
     {
@@ -45,8 +40,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that authenticated user can create a customer.
-     *
-     * @return void
      */
     public function test_authenticated_user_can_create_customer()
     {
@@ -63,8 +56,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that customer creation validation fails with missing name.
-     *
-     * @return void
      */
     public function test_customer_creation_validation_requires_name()
     {
@@ -83,8 +74,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that customer creation validation requires email.
-     *
-     * @return void
      */
     public function test_customer_creation_validation_requires_email()
     {
@@ -103,8 +92,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that authenticated user can view a specific customer.
-     *
-     * @return void
      */
     public function test_authenticated_user_can_view_customer()
     {
@@ -116,8 +103,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that viewing non-existent customer returns 404.
-     *
-     * @return void
      */
     public function test_viewing_nonexistent_customer_returns_error()
     {
@@ -133,8 +118,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that authenticated user can update a customer.
-     *
-     * @return void
      */
     public function test_authenticated_user_can_update_customer()
     {
@@ -146,8 +129,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that unauthenticated user cannot update a customer.
-     *
-     * @return void
      */
     public function test_unauthenticated_user_cannot_update_customer()
     {
@@ -160,8 +141,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that updating non-existent customer returns error.
-     *
-     * @return void
      */
     public function test_updating_nonexistent_customer_returns_error()
     {
@@ -179,8 +158,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that customer destroy method exists but is not implemented.
-     *
-     * @return void
      */
     public function test_customer_destroy_is_not_implemented()
     {
@@ -192,8 +169,6 @@ class CustomersControllerTest extends TestCase
 
     /**
      * Test that unauthenticated user cannot delete a customer.
-     *
-     * @return void
      */
     public function test_unauthenticated_user_cannot_delete_customer()
     {

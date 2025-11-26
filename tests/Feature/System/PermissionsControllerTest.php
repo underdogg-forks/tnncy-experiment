@@ -14,8 +14,6 @@ class PermissionsControllerTest extends TestCase
 
     /**
      * Test that authenticated user can list permissions with guard filter.
-     *
-     * @return void
      */
     public function test_authenticated_user_can_list_permissions_with_guard_filter()
     {
@@ -48,8 +46,6 @@ class PermissionsControllerTest extends TestCase
 
     /**
      * Test that permissions are filtered by guard name.
-     *
-     * @return void
      */
     public function test_permissions_are_filtered_by_guard_name()
     {
@@ -76,8 +72,6 @@ class PermissionsControllerTest extends TestCase
 
     /**
      * Test that unauthenticated user cannot list permissions.
-     *
-     * @return void
      */
     public function test_unauthenticated_user_cannot_list_permissions()
     {
@@ -88,8 +82,6 @@ class PermissionsControllerTest extends TestCase
 
     /**
      * Test that permissions endpoint returns empty array when no permissions exist.
-     *
-     * @return void
      */
     public function test_permissions_endpoint_returns_empty_array_when_no_permissions()
     {
@@ -105,8 +97,6 @@ class PermissionsControllerTest extends TestCase
 
     /**
      * Test that permissions endpoint works without guard parameter.
-     *
-     * @return void
      */
     public function test_permissions_endpoint_works_without_guard_parameter()
     {

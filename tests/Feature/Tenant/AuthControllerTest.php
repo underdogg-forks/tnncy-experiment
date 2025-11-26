@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Tenant;
 
-use App\Models\Tenant\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,8 +11,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that tenant user can login with valid credentials.
-     *
-     * @return void
      */
     public function test_tenant_user_can_login_with_valid_credentials()
     {
@@ -28,8 +25,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that tenant login fails with invalid password.
-     *
-     * @return void
      */
     public function test_tenant_login_fails_with_invalid_password()
     {
@@ -38,8 +33,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that tenant login validation fails with missing email.
-     *
-     * @return void
      */
     public function test_tenant_login_validation_fails_with_missing_email()
     {
@@ -48,8 +41,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that tenant login validation fails with invalid email format.
-     *
-     * @return void
      */
     public function test_tenant_login_validation_fails_with_invalid_email_format()
     {
@@ -58,8 +49,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that tenant login validation fails with missing password.
-     *
-     * @return void
      */
     public function test_tenant_login_validation_fails_with_missing_password()
     {
@@ -68,8 +57,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that authenticated tenant user can get their details.
-     *
-     * @return void
      */
     public function test_authenticated_tenant_user_can_get_user_details()
     {
@@ -78,8 +65,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that unauthenticated tenant user cannot get user details.
-     *
-     * @return void
      */
     public function test_unauthenticated_tenant_user_cannot_get_user_details()
     {
@@ -88,8 +73,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that authenticated tenant user can logout.
-     *
-     * @return void
      */
     public function test_authenticated_tenant_user_can_logout()
     {
@@ -98,8 +81,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that unauthenticated tenant user cannot logout.
-     *
-     * @return void
      */
     public function test_unauthenticated_tenant_user_cannot_logout()
     {
@@ -108,8 +89,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that authenticated tenant user can refresh token.
-     *
-     * @return void
      */
     public function test_authenticated_tenant_user_can_refresh_token()
     {
@@ -118,8 +97,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that unauthenticated tenant user cannot refresh token.
-     *
-     * @return void
      */
     public function test_unauthenticated_tenant_user_cannot_refresh_token()
     {
@@ -128,8 +105,6 @@ class AuthControllerTest extends TestCase
 
     /**
      * Test that guard method returns tenant guard.
-     *
-     * @return void
      */
     public function test_guard_method_returns_tenant_guard()
     {

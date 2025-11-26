@@ -13,7 +13,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.2",
-        "filament/filament": "*",
+        "filament/filament": "^4.2",
         "guzzlehttp/guzzle": "^7.10",
         "hyn/multi-tenant": "^5.11",
         "laravel/framework": "^12.40",
@@ -57,7 +57,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

@@ -2,17 +2,24 @@
 
 namespace Tests\Unit;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
 {
     /**
-     * A basic test example.
-     *
-     * @return void
+     * It asserts that true is true.
      */
-    public function testBasicTest()
+    #[Test]
+    public function it_asserts_true_is_true()
     {
-        $this->assertTrue(true);
+        // Arrange
+        // No setup needed
+
+        // Act
+        $result = true;
+
+        // Assert
+        $this->assertTrue($result);
     }
 }

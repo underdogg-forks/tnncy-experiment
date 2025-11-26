@@ -14,8 +14,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that authenticated user can list all users.
-     *
-     * @return void
      */
     public function test_authenticated_user_can_list_users()
     {
@@ -43,8 +41,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that unauthenticated user cannot list users.
-     *
-     * @return void
      */
     public function test_unauthenticated_user_cannot_list_users()
     {
@@ -55,8 +51,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that authenticated user can create a user.
-     *
-     * @return void
      */
     public function test_authenticated_user_can_create_user()
     {
@@ -85,8 +79,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that unauthenticated user cannot create a user.
-     *
-     * @return void
      */
     public function test_unauthenticated_user_cannot_create_user()
     {
@@ -101,8 +93,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that authenticated user can view a specific user.
-     *
-     * @return void
      */
     public function test_authenticated_user_can_view_user()
     {
@@ -133,8 +123,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that viewing non-existent user returns 404.
-     *
-     * @return void
      */
     public function test_viewing_nonexistent_user_returns_404()
     {
@@ -149,8 +137,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that authenticated user can update a user.
-     *
-     * @return void
      */
     public function test_authenticated_user_can_update_user()
     {
@@ -185,8 +171,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that update validation fails with duplicate email.
-     *
-     * @return void
      */
     public function test_update_validation_fails_with_duplicate_email()
     {
@@ -216,8 +200,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that update validation fails with short password.
-     *
-     * @return void
      */
     public function test_update_validation_fails_with_short_password()
     {
@@ -241,8 +223,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that updating non-existent user returns 404.
-     *
-     * @return void
      */
     public function test_updating_nonexistent_user_returns_404()
     {
@@ -259,8 +239,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that authenticated user can delete a user.
-     *
-     * @return void
      */
     public function test_authenticated_user_can_delete_user()
     {
@@ -284,8 +262,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Test that unauthenticated user cannot delete a user.
-     *
-     * @return void
      */
     public function test_unauthenticated_user_cannot_delete_user()
     {

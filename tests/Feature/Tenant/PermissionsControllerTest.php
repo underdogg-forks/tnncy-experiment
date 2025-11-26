@@ -3,6 +3,7 @@
 namespace Tests\Feature\Tenant;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class PermissionsControllerTest extends TestCase
@@ -10,72 +11,98 @@ class PermissionsControllerTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test that authenticated tenant user can list permissions.
-     *
-     * @return void
+     * It allows an authenticated tenant user to list permissions.
      */
-    public function test_authenticated_tenant_user_can_list_permissions()
+    #[Test]
+    public function it_allows_authenticated_tenant_user_to_list_permissions()
     {
+        // Arrange
+        // ...setup tenant context, user, permissions...
+
+        // Act
         $this->markTestSkipped('Tenant operations require multi-tenant context with separate database');
 
-        // Note: Testing tenant permissions requires:
-        // 1. Setting up a tenant database
-        // 2. Creating a customer with assigned permissions
-        // 3. Switching to tenant context
-        // 4. Authenticating with tenant guard
-        // 5. Verifying permissions are filtered by customer permissions
+        // Assert
+        // ...assertions would go here...
     }
 
     /**
-     * Test that unauthenticated tenant user cannot list permissions.
-     *
-     * @return void
+     * It denies an unauthenticated tenant user from listing permissions.
      */
-    public function test_unauthenticated_tenant_user_cannot_list_permissions()
+    #[Test]
+    public function it_denies_unauthenticated_tenant_user_from_listing_permissions()
     {
-        $this->markTestSkipped('Tenant operations require multi-tenant context');
-    }
+        // Arrange
+        // ...setup...
 
-    /**
-     * Test that permissions are filtered by customer permissions.
-     *
-     * @return void
-     */
-    public function test_permissions_are_filtered_by_customer_permissions()
-    {
+        // Act
         $this->markTestSkipped('Tenant operations require multi-tenant context');
 
-        // Note: This test would verify that only permissions assigned to the
-        // customer are returned to tenant users, not all tenant permissions
+        // Assert
+        // ...assertions would go here...
     }
 
     /**
-     * Test that tenantPermissions helper returns empty collection without hostname.
-     *
-     * @return void
+     * It filters permissions by customer permissions.
      */
-    public function test_tenant_permissions_helper_returns_empty_without_hostname()
+    #[Test]
+    public function it_filters_permissions_by_customer_permissions()
     {
+        // Arrange
+        // ...setup...
+
+        // Act
+        $this->markTestSkipped('Tenant operations require multi-tenant context');
+
+        // Assert
+        // ...assertions would go here...
+    }
+
+    /**
+     * It returns an empty collection from tenantPermissions helper without hostname.
+     */
+    #[Test]
+    public function it_returns_empty_collection_from_tenant_permissions_helper_without_hostname()
+    {
+        // Arrange
+        // ...setup...
+
+        // Act
         $this->markTestSkipped('Testing helper method requires multi-tenant context');
+
+        // Assert
+        // ...assertions would go here...
     }
 
     /**
-     * Test that tenantPermissions helper returns customer permissions.
-     *
-     * @return void
+     * It returns customer permissions from tenantPermissions helper.
      */
-    public function test_tenant_permissions_helper_returns_customer_permissions()
+    #[Test]
+    public function it_returns_customer_permissions_from_tenant_permissions_helper()
     {
+        // Arrange
+        // ...setup...
+
+        // Act
         $this->markTestSkipped('Testing helper method requires multi-tenant context');
+
+        // Assert
+        // ...assertions would go here...
     }
 
     /**
-     * Test that index returns only permissions matching customer permissions.
-     *
-     * @return void
+     * It returns only permissions matching customer in index.
      */
-    public function test_index_returns_only_permissions_matching_customer()
+    #[Test]
+    public function it_returns_only_permissions_matching_customer_in_index()
     {
+        // Arrange
+        // ...setup...
+
+        // Act
         $this->markTestSkipped('Tenant operations require multi-tenant context');
+
+        // Assert
+        // ...assertions would go here...
     }
 }
