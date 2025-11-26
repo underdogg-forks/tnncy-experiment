@@ -10,7 +10,12 @@ class PermissionsController extends Controller
 {
     public function tenantPermissions()
     {
-        $hostname  = app(\Hyn\Tenancy\Environment::class)->hostname();
+        $hostname = app(\Hyn\Tenancy\Environment::class)->hostname();
+
+        if (! $hostname || ! $hostname->customer) {
+            return collect();
+        }
+
         return $hostname->customer->getDirectPermissions();
     }
 
@@ -22,13 +27,8 @@ class PermissionsController extends Controller
     public function index()
     {
         $customerPermissions = $this->tenantPermissions();
-        $customerUserPermissions = Permission::all();
-        $permissions = [];
-        foreach ($customerUserPermissions as $permission) {
-            if (linearSearch($permission, $customerPermissions)) {
-                array_push($permissions, $permission);
-            }
-        }
-        return $permissions;
+        $names = $customerPermissions->pluck('name');
+
+        return Permission::whereIn('name', $names)->get();
     }
 }
