@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\System;
 
 use App\Models\System\Customer;
-use App\Models\Tenant\Permission;
+use App\Models\System\Permission as SystemPermission;
+use App\Models\Tenant\Permission as TenantPermission;
 use App\Models\Tenant\User;
 use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
 use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
@@ -33,8 +34,8 @@ class CustomersBasicController
      */
     public function store(Request $request)
     {
-        // Create Custoemr and give this customer peromissions
-        $permissions = Permission::whereIn('id', $request->permissions)->get();
+        // Create Customer and give this customer permissions
+        $permissions = SystemPermission::whereIn('id', $request->permissions)->get();
         $customer    = Customer::create([
             'name'  => $request->name,
             'email' => $request->email,
@@ -72,7 +73,7 @@ class CustomersBasicController
      */
     public function update(Request $request, $id)
     {
-        $permissions = Permission::whereIn('id', $request->permissions)->get();
+        $permissions = SystemPermission::whereIn('id', $request->permissions)->get();
         $customer    = Customer::find($id);
         $customer->update([
             'name'  => $request->name,
@@ -132,25 +133,19 @@ class CustomersBasicController
     {
         $permissions = $this->permissions($customer);
         $user        = User::create([
-            'name'              => 'tenant name',
-            'email'             => 'admin@mail.com',
-            'password'          => 'password',
+            'name'     => 'tenant name',
+            'email'    => 'admin@mail.com',
+            'password' => 'password',
         ]);
         $user->givePermissionTo($permissions);
     }
 
     private function permissions($customer)
     {
-        $customerPermissions     = $customer->getAllPermissions();
-        $customerUserPermissions = Permission::all();
-        $permissions             = [];
-        foreach ($customerUserPermissions as $permission) {
-            if (linearSearch($permission, $customerPermissions)) {
-                array_push($permissions, $permission);
-            }
-        }
+        $customerPermissionNames = $customer->getAllPermissions()->pluck('name')->toArray();
 
-        return $permissions;
+        // Only get tenant permissions that match the customer's permission names
+        return TenantPermission::whereIn('name', $customerPermissionNames)->get();
     }
 
     private function getCustomer($id)

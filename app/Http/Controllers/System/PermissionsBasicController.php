@@ -14,6 +14,12 @@ class PermissionsBasicController
      */
     public function index(Request $request)
     {
-        return Permission::where('guard_name', $request->guard)->get();
+        $allowedGuards = ['system', 'customer'];
+        $guard         = $request->get('guard', 'system');
+        if ( ! in_array($guard, $allowedGuards, true)) {
+            return response()->json(['error' => 'Invalid guard'], 400);
+        }
+
+        return Permission::where('guard_name', $guard)->get();
     }
 }

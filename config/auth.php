@@ -80,11 +80,13 @@ return [
     */
 
     'providers' => [
+        // Used by the 'web' guard for legacy/session-based authentication (admin panel, etc)
         'users' => [
             'driver' => 'eloquent',
             'model'  => App\Models\System\User::class,
         ],
 
+        // Used by the 'system' guard for JWT-based API authentication (system-level operations)
         'system-users' => [
             'driver' => 'eloquent',
             'model'  => App\Models\System\User::class,

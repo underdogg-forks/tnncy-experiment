@@ -25,7 +25,8 @@ class BuildDatabasesForTenants extends Seeder
                 'email'  => 'customer@foo.com',
             ],
         ];
-        $permission = Permission::find(9);
+        $permissionName = 'permission_name'; // TODO: set to actual permission name
+        $permission     = Permission::where('name', $permissionName)->first();
 
         foreach ($customers as $customer) {
             /*
@@ -34,14 +35,19 @@ class BuildDatabasesForTenants extends Seeder
             |--------------------------------------------------------------------------
              */
             $newCustomer = Customer::create(['name' => $customer['name'], 'email' => $customer['email']]);
-            $newCustomer->givePermissionTo($permission);
+            if ($permission) {
+                $newCustomer->givePermissionTo($permission);
+            } else {
+                \Log::warning("Permission '{$permissionName}' not found. Skipping assignment for customer {$customer['name']}.");
+                // Optionally: Permission::create(['name' => $permissionName, 'guard_name' => 'system']);
+            }
 
             /*
             |--------------------------------------------------------------------------
             | CREATE THE WEBSITE
             |--------------------------------------------------------------------------
             */
-            $website = new Website();
+            $website       = new Website();
             $website->uuid = Str::uuid()->toString();
             app(WebsiteRepository::class)->create($website);
 

@@ -30,8 +30,19 @@ class UserBasicController
      */
     public function store(Request $request)
     {
-        $permissions = Permission::whereIn('id', $request->selectedPermissions)->get();
-        $user        = User::create($request->all());
+        $validated = $request->validate([
+            'name'                  => 'required|string|max:255',
+            'email'                 => 'required|email|unique:users,email',
+            'password'              => 'required|string|min:8',
+            'selectedPermissions'   => 'array',
+            'selectedPermissions.*' => 'exists:permissions,id',
+        ]);
+        $permissions = Permission::whereIn('id', $validated['selectedPermissions'] ?? [])->get();
+        $user        = User::create([
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
+        ]);
         $user->givePermissionTo($permissions);
 
         return $user;
@@ -85,6 +96,9 @@ class UserBasicController
     public function destroy($id)
     {
         $user = User::find($id);
+        if ( ! $user) {
+            abort(404, 'User not found');
+        }
         $user->syncPermissions([]);
         $user->delete();
 

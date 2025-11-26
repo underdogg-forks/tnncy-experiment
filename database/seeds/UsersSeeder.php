@@ -16,13 +16,21 @@ class UsersSeeder extends Seeder
     {
         $permissions = Permission::where('guard_name', 'system')->get();
 
-        $user = User::create([
-            'name'              => 'Admin Name',
-            'email'             => 'admin@mail.com',
-            'email_verified_at' => now(),
-            'password'          => 'password',
-            'remember_token'    => Str::random(10),
-        ]);
-        $user->givePermissionTo($permissions);
+        $email           = env('SEED_ADMIN_EMAIL', 'admin_' . Str::random(6) . '@local.test');
+        $isProduction    = app()->environment('production');
+        $defaultPassword = $isProduction ? null : 'password';
+        $password        = env('SEED_ADMIN_PASSWORD', $defaultPassword);
+        $hashedPassword  = $password ? \Illuminate\Support\Facades\Hash::make($password) : null;
+
+        $user = User::updateOrCreate(
+            ['email' => $email],
+            [
+                'name'              => env('SEED_ADMIN_NAME', 'Admin Name'),
+                'email_verified_at' => now(),
+                'password'          => $hashedPassword,
+                'remember_token'    => Str::random(10),
+            ]
+        );
+        $user->syncPermissions($permissions);
     }
 }

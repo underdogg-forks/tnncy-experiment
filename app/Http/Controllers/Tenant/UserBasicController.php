@@ -48,8 +48,19 @@ class UserBasicController
      */
     public function store(Request $request)
     {
-        $permissions = Permission::whereIn('id', $request->selectedUserCustomerPermissions)->get();
-        $user        = User::create($request->all());
+        $validated = $request->validate([
+            'name'                              => 'required|string|max:255',
+            'email'                             => 'required|email|unique:users,email',
+            'password'                          => 'required|string|min:8',
+            'selectedUserCustomerPermissions'   => 'array',
+            'selectedUserCustomerPermissions.*' => 'exists:permissions,id',
+        ]);
+        $permissions = Permission::whereIn('id', $request->selectedUserCustomerPermissions ?? [])->get();
+        $user        = User::create([
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
+        ]);
         $user->givePermissionTo($permissions);
 
         return $user;

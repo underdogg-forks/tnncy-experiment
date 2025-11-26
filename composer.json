@@ -13,6 +13,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.2",
+        "filament/filament": "*",
         "guzzlehttp/guzzle": "^7.10",
         "hyn/multi-tenant": "^5.11",
         "laravel/framework": "^12.40",
@@ -20,13 +21,15 @@
         "tymon/jwt-auth": "^2.2"
     },
     "require-dev": {
+        "driftingly/rector-laravel": "^2.1",
         "fakerphp/faker": "*",
+        "larastan/larastan": "*",
         "laravel/pint": "dev-feat/blade",
         "laravel/tinker": "*",
         "mockery/mockery": "*",
         "nunomaduro/collision": "*",
-        "larastan/larastan": "*",
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "rector/rector": "^2.2"
     },
     "extra": {
         "laravel": {
