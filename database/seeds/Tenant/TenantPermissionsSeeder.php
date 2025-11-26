@@ -1,5 +1,6 @@
 <?php
 
+namespace Database\Seeders\Tenant;
 
 use Illuminate\Database\Seeder;
 use App\Models\Tenant\Permission;
@@ -13,11 +14,13 @@ class TenantPermissionsSeeder extends Seeder
      */
     public function run()
     {
-        $systemPermissions = config('permission.permissions_list')['system'];
+        $tenantPermissions = config('permission.permissions_list')['tenant'];
         $tenantPermissions = config('permission.permissions_list')['tenant'];
 
         foreach ($tenantPermissions as $permission) {
-            Permission::create(['name' => $permission, 'guard_name' => 'tenant']);
+            Permission::firstOrCreate(
+                ['name' => $permission, 'guard_name' => 'tenant']
+            );
         }
     }
 }
