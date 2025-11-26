@@ -7,6 +7,7 @@ use Hyn\Tenancy\Models\Hostname;
 use Hyn\Tenancy\Models\Website;
 use Illuminate\Database\Seeder;
 use App\Models\System\Customer;
+use Spatie\Permission\Models\Permission;
 
 
 class BuildDatabasesForTenants extends Seeder
@@ -20,11 +21,12 @@ class BuildDatabasesForTenants extends Seeder
     {
         $customers = [
             [
-                'domain' => 'foo.tenancy.localhost',
+                'domain' => 'foo.api.tenancy.localhost',
                 'name' => 'FooCustomer',
                 'email' => 'customer@foo.com'
             ],
         ];
+        $permission = Permission::find(9);
 
         foreach ($customers as $customer) {
 
@@ -34,6 +36,7 @@ class BuildDatabasesForTenants extends Seeder
             |--------------------------------------------------------------------------
              */
             $newCustomer = Customer::create(['name' => $customer['name'], 'email' => $customer['email']]);
+            $newCustomer->givePermissionTo($permission);
 
             /*
             |--------------------------------------------------------------------------
