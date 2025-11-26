@@ -17,10 +17,10 @@ class SystemPermissionsSeeder extends Seeder
         $systemPermissions = config('permission.permissions_list')['system'];
         $tenantPermissions = config('permission.permissions_list')['tenant'];
         foreach ($systemPermissions as $permission) {
-            Permission::create(['name' => $permission, 'guard_name' => 'system']);
+            Permission::firstOrCreate(['name' => $permission, 'guard_name' => 'system']);
         }
         foreach ($tenantPermissions as $permission) {
-            Permission::create(['name' => $permission, 'guard_name' => 'customer']);
+            Permission::firstOrCreate(['name' => $permission, 'guard_name' => 'customer']);
         }
     }
 }

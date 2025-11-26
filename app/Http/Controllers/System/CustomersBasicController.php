@@ -134,7 +134,6 @@ class CustomersBasicController
         $user        = User::create([
             'name'              => 'tenant name',
             'email'             => 'admin@mail.com',
-            'email_verified_at' => now(),
             'password'          => 'password',
         ]);
         $user->givePermissionTo($permissions);

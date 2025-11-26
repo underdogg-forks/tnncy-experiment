@@ -11,7 +11,7 @@ class UserBasicController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
@@ -42,7 +42,7 @@ class UserBasicController
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function show($id)
     {

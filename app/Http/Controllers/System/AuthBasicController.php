@@ -42,7 +42,7 @@ class AuthBasicController
     /**
      * Get the authenticated User.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function user()
     {

@@ -6,6 +6,7 @@ use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
 use Hyn\Tenancy\Models\Hostname;
 use Hyn\Tenancy\Models\Website;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 
 class BuildDatabasesForTenants extends Seeder
@@ -41,6 +42,7 @@ class BuildDatabasesForTenants extends Seeder
             |--------------------------------------------------------------------------
             */
             $website = new Website();
+            $website->uuid = Str::uuid()->toString();
             app(WebsiteRepository::class)->create($website);
 
             /*
