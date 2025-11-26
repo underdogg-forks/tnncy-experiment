@@ -16,12 +16,12 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $permissions = Permission::where('guard_name', 'system')->get();
-        
+
         $user =   User::create([
-            'name' => 'mustafa el-gaml',
+            'name' => 'Admin Name',
             'email' => 'admin@mail.com',
             'email_verified_at' => now(),
-            'password' => 'password', 
+            'password' => 'password',
             'remember_token' => Str::random(10),
             ]);
         $user->givePermissionTo($permissions);
