@@ -1,7 +1,17 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BonNdcy_.css",
+    "file": "assets/app-BYWffp7T.css",
     "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/filament/admin/nord.css": {
+    "file": "assets/nord-CfptmofX.css",
+    "src": "resources/css/filament/admin/nord.css",
+    "isEntry": true
+  },
+  "resources/css/filament/tenant/nord.css": {
+    "file": "assets/nord-33bq7Of5.css",
+    "src": "resources/css/filament/tenant/nord.css",
     "isEntry": true
   },
   "resources/js/app.js": {

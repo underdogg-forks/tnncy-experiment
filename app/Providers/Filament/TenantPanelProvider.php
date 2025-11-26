@@ -26,6 +26,7 @@ class TenantPanelProvider extends PanelProvider
         return $panel
             ->id('tenant')
             ->path('tenant')
+            ->login()
             ->font(
                 'Poppins',
                 provider: GoogleFontProvider::class,
