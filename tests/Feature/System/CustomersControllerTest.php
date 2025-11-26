@@ -2,32 +2,15 @@
 
 namespace Tests\Feature\System;
 
-use Tests\TestCase;
-use App\Models\System\User;
 use App\Models\System\Customer;
-use App\Models\Tenant\Permission;
+use App\Models\System\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class CustomersControllerTest extends TestCase
 {
     use RefreshDatabase;
-
-    /**
-     * Get authenticated user token.
-     *
-     * @return string
-     */
-    private function getAuthToken()
-    {
-        $user = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password123'),
-        ]);
-
-        return auth()->guard('system')->login($user);
-    }
 
     /**
      * Test that authenticated user can list all customers.
@@ -68,7 +51,7 @@ class CustomersControllerTest extends TestCase
     public function test_authenticated_user_can_create_customer()
     {
         $this->markTestSkipped('Customer creation requires multi-tenant setup which is complex to test');
-        
+
         // Note: This test is skipped because creating a customer involves:
         // 1. Creating a Website with separate database
         // 2. Creating a Hostname and linking it
@@ -90,7 +73,7 @@ class CustomersControllerTest extends TestCase
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->postJson('/api/customers', [
-            'email' => 'customer@example.com',
+            'email'  => 'customer@example.com',
             'domain' => 'customer.localhost',
         ]);
 
@@ -110,7 +93,7 @@ class CustomersControllerTest extends TestCase
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->postJson('/api/customers', [
-            'name' => 'Test Customer',
+            'name'   => 'Test Customer',
             'domain' => 'customer.localhost',
         ]);
 
@@ -126,7 +109,7 @@ class CustomersControllerTest extends TestCase
     public function test_authenticated_user_can_view_customer()
     {
         $this->markTestSkipped('Viewing customer requires hostname relationship which needs multi-tenant setup');
-        
+
         // Note: Viewing a customer requires the hostname relationship to be set up
         // which is part of the multi-tenant infrastructure
     }
@@ -156,7 +139,7 @@ class CustomersControllerTest extends TestCase
     public function test_authenticated_user_can_update_customer()
     {
         $this->markTestSkipped('Customer update requires hostname relationship which needs multi-tenant setup');
-        
+
         // Note: Updating a customer involves updating both Customer and Hostname
         // which requires multi-tenant infrastructure
     }
@@ -202,7 +185,7 @@ class CustomersControllerTest extends TestCase
     public function test_customer_destroy_is_not_implemented()
     {
         $this->markTestSkipped('Customer deletion is intentionally not implemented in the controller');
-        
+
         // Note: The destroy method in CustomersController is commented out
         // as it involves complex database deletion logic
     }
@@ -217,5 +200,21 @@ class CustomersControllerTest extends TestCase
         $response = $this->deleteJson('/api/customers/1');
 
         $response->assertStatus(401);
+    }
+
+    /**
+     * Get authenticated user token.
+     *
+     * @return string
+     */
+    private function getAuthToken()
+    {
+        $user = User::create([
+            'name'     => 'Admin User',
+            'email'    => 'admin@example.com',
+            'password' => Hash::make('password123'),
+        ]);
+
+        return auth()->guard('system')->login($user);
     }
 }

@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Tenant;
 
-use App\Http\Controllers\Controller;
 use App\Models\Tenant\Permission;
-use Illuminate\Http\Request;
 
-class PermissionsController extends Controller
+class PermissionsBasicController
 {
     public function tenantPermissions()
     {
         $hostname = app(\Hyn\Tenancy\Environment::class)->hostname();
 
-        if (! $hostname || ! $hostname->customer) {
+        if ( ! $hostname || ! $hostname->customer) {
             return collect();
         }
 
@@ -27,7 +25,7 @@ class PermissionsController extends Controller
     public function index()
     {
         $customerPermissions = $this->tenantPermissions();
-        $names = $customerPermissions->pluck('name');
+        $names               = $customerPermissions->pluck('name');
 
         return Permission::whereIn('name', $names)->get();
     }

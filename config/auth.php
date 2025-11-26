@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -14,7 +13,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard'     => 'web',
         'passwords' => 'users',
     ],
 
@@ -37,25 +36,24 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            'driver'   => 'session',
             'provider' => 'users',
         ],
 
         'customer' => [
-            'driver' => 'session',
+            'driver'   => 'session',
             'provider' => 'customer',
         ],
 
         'tenant' => [
-            'driver' => 'jwt',
+            'driver'   => 'jwt',
             'provider' => 'tenant-users',
         ],
 
         'system' => [
-            'driver' => 'jwt',
+            'driver'   => 'jwt',
             'provider' => 'system-users',
         ],
-
 
         // 'api' => [
         //     'driver' => 'jwt',
@@ -82,25 +80,24 @@ return [
     */
 
     'providers' => [
-
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\System\User::class,
+            'model'  => App\Models\System\User::class,
         ],
 
         'system-users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\System\User::class,
+            'model'  => App\Models\System\User::class,
         ],
 
         'tenant-users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Tenant\User::class,
+            'model'  => App\Models\Tenant\User::class,
         ],
 
         'customer' => [
             'driver' => 'eloquent',
-            'model' => App\Models\System\Customer::class,
+            'model'  => App\Models\System\Customer::class,
         ],
 
         // 'users' => [
@@ -127,8 +124,8 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
+            'table'    => 'password_resets',
+            'expire'   => 60,
             'throttle' => 60,
         ],
     ],
@@ -145,5 +142,4 @@ return [
     */
 
     'password_timeout' => 10800,
-
 ];

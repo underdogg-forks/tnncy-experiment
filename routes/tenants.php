@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'tenant.checker'], function () {
     $namespace = 'App\\Http\\Controllers\\Tenant\\';
     Route::prefix('api')->namespace($namespace)->group(function () {
-
         Route::post('login', 'AuthController@login');
         Route::get('/tenant/permissions', 'PermissionsController@tenantPermissions');
 

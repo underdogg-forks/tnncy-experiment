@@ -18,11 +18,8 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-
-
 Route::post('login', 'System\AuthController@login');
 Route::get('/checkTenant', 'System\ConfigController@checkTenant');
-
 
 Route::group(['middleware' => ['auth.guard.checker:system', 'jwt.auth']], function () {
     Route::post('logout', 'System\AuthController@logout');

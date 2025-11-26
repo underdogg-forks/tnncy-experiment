@@ -2,31 +2,15 @@
 
 namespace Tests\Feature\System;
 
-use Tests\TestCase;
-use App\Models\System\User;
 use App\Models\System\Permission;
+use App\Models\System\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
-
-    /**
-     * Get authenticated user token.
-     *
-     * @return string
-     */
-    private function getAuthToken()
-    {
-        $user = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password123'),
-        ]);
-
-        return auth()->guard('system')->login($user);
-    }
 
     /**
      * Test that authenticated user can list all users.
@@ -38,14 +22,14 @@ class UserControllerTest extends TestCase
         $token = $this->getAuthToken();
 
         User::create([
-            'name' => 'User One',
-            'email' => 'user1@example.com',
+            'name'     => 'User One',
+            'email'    => 'user1@example.com',
             'password' => Hash::make('password123'),
         ]);
 
         User::create([
-            'name' => 'User Two',
-            'email' => 'user2@example.com',
+            'name'     => 'User Two',
+            'email'    => 'user2@example.com',
             'password' => Hash::make('password123'),
         ]);
 
@@ -79,22 +63,22 @@ class UserControllerTest extends TestCase
         $token = $this->getAuthToken();
 
         $permission = Permission::create([
-            'name' => 'edit-users',
+            'name'       => 'edit-users',
             'guard_name' => 'system',
         ]);
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->postJson('/api/users', [
-            'name' => 'New User',
-            'email' => 'newuser@example.com',
-            'password' => Hash::make('password123'),
+            'name'                => 'New User',
+            'email'               => 'newuser@example.com',
+            'password'            => Hash::make('password123'),
             'selectedPermissions' => [$permission->id],
         ]);
 
         $response->assertStatus(201);
         $this->assertDatabaseHas('users', [
-            'name' => 'New User',
+            'name'  => 'New User',
             'email' => 'newuser@example.com',
         ]);
     }
@@ -107,8 +91,8 @@ class UserControllerTest extends TestCase
     public function test_unauthenticated_user_cannot_create_user()
     {
         $response = $this->postJson('/api/users', [
-            'name' => 'New User',
-            'email' => 'newuser@example.com',
+            'name'     => 'New User',
+            'email'    => 'newuser@example.com',
             'password' => 'password123',
         ]);
 
@@ -125,8 +109,8 @@ class UserControllerTest extends TestCase
         $token = $this->getAuthToken();
 
         $user = User::create([
-            'name' => 'Test User',
-            'email' => 'testuser@example.com',
+            'name'     => 'Test User',
+            'email'    => 'testuser@example.com',
             'password' => Hash::make('password123'),
         ]);
 
@@ -141,7 +125,7 @@ class UserControllerTest extends TestCase
         ]);
         $response->assertJson([
             'user' => [
-                'name' => 'Test User',
+                'name'  => 'Test User',
                 'email' => 'testuser@example.com',
             ],
         ]);
@@ -173,28 +157,28 @@ class UserControllerTest extends TestCase
         $token = $this->getAuthToken();
 
         $user = User::create([
-            'name' => 'Original Name',
-            'email' => 'original@example.com',
+            'name'     => 'Original Name',
+            'email'    => 'original@example.com',
             'password' => Hash::make('password123'),
         ]);
 
         $permission = Permission::create([
-            'name' => 'edit-content',
+            'name'       => 'edit-content',
             'guard_name' => 'system',
         ]);
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->putJson('/api/users/' . $user->id, [
-            'name' => 'Updated Name',
-            'email' => 'updated@example.com',
+            'name'        => 'Updated Name',
+            'email'       => 'updated@example.com',
             'permissions' => [$permission->id],
         ]);
 
         $response->assertStatus(200);
         $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'name' => 'Updated Name',
+            'id'    => $user->id,
+            'name'  => 'Updated Name',
             'email' => 'updated@example.com',
         ]);
     }
@@ -209,14 +193,14 @@ class UserControllerTest extends TestCase
         $token = $this->getAuthToken();
 
         $user1 = User::create([
-            'name' => 'User One',
-            'email' => 'user1@example.com',
+            'name'     => 'User One',
+            'email'    => 'user1@example.com',
             'password' => Hash::make('password123'),
         ]);
 
         $user2 = User::create([
-            'name' => 'User Two',
-            'email' => 'user2@example.com',
+            'name'     => 'User Two',
+            'email'    => 'user2@example.com',
             'password' => Hash::make('password123'),
         ]);
 
@@ -240,8 +224,8 @@ class UserControllerTest extends TestCase
         $token = $this->getAuthToken();
 
         $user = User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name'     => 'Test User',
+            'email'    => 'test@example.com',
             'password' => Hash::make('password123'),
         ]);
 
@@ -283,8 +267,8 @@ class UserControllerTest extends TestCase
         $token = $this->getAuthToken();
 
         $user = User::create([
-            'name' => 'User to Delete',
-            'email' => 'delete@example.com',
+            'name'     => 'User to Delete',
+            'email'    => 'delete@example.com',
             'password' => Hash::make('password123'),
         ]);
 
@@ -306,8 +290,8 @@ class UserControllerTest extends TestCase
     public function test_unauthenticated_user_cannot_delete_user()
     {
         $user = User::create([
-            'name' => 'User to Delete',
-            'email' => 'delete@example.com',
+            'name'     => 'User to Delete',
+            'email'    => 'delete@example.com',
             'password' => Hash::make('password123'),
         ]);
 
@@ -317,5 +301,21 @@ class UserControllerTest extends TestCase
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
         ]);
+    }
+
+    /**
+     * Get authenticated user token.
+     *
+     * @return string
+     */
+    private function getAuthToken()
+    {
+        $user = User::create([
+            'name'     => 'Admin User',
+            'email'    => 'admin@example.com',
+            'password' => Hash::make('password123'),
+        ]);
+
+        return auth()->guard('system')->login($user);
     }
 }

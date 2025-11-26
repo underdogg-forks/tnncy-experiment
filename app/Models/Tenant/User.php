@@ -2,17 +2,18 @@
 
 namespace App\Models\Tenant;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Notifications\Notifiable;
 use Hyn\Tenancy\Traits\UsesTenantConnection;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, UsesTenantConnection,HasRoles;
+    use HasRoles;
+    use Notifiable;
+    use UsesTenantConnection;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','permissionss'
+        'name', 'email', 'password', 'permissionss',
     ];
 
     /**
@@ -60,14 +61,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
     /**
-     * function of mutator json array type of column keywords_en
-     *
-     *
-     * @return formatted value
+     * function of mutator json array type of column keywords_en.
      */
-    public function setPasswordAttribute($value)
+    public function setPasswordAttribute($value): void
     {
-        $this->attributes['password'] =  Hash::make($value);
+        $this->attributes['password'] = Hash::make($value);
     }
 }

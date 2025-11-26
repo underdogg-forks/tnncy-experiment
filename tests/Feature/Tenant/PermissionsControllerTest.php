@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Tenant;
 
-use Tests\TestCase;
-use App\Models\Tenant\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class PermissionsControllerTest extends TestCase
 {
@@ -18,7 +17,7 @@ class PermissionsControllerTest extends TestCase
     public function test_authenticated_tenant_user_can_list_permissions()
     {
         $this->markTestSkipped('Tenant operations require multi-tenant context with separate database');
-        
+
         // Note: Testing tenant permissions requires:
         // 1. Setting up a tenant database
         // 2. Creating a customer with assigned permissions
@@ -45,7 +44,7 @@ class PermissionsControllerTest extends TestCase
     public function test_permissions_are_filtered_by_customer_permissions()
     {
         $this->markTestSkipped('Tenant operations require multi-tenant context');
-        
+
         // Note: This test would verify that only permissions assigned to the
         // customer are returned to tenant users, not all tenant permissions
     }

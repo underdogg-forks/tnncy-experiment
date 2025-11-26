@@ -2,8 +2,8 @@
 
 namespace Database\Seeders\Tenant;
 
-use Illuminate\Database\Seeder;
 use App\Models\Tenant\Permission;
+use Illuminate\Database\Seeder;
 
 class TenantPermissionsSeeder extends Seeder
 {

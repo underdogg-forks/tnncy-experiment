@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Tenant;
 
-use Tests\TestCase;
 use App\Models\Tenant\User;
-use App\Models\Tenant\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
@@ -20,7 +18,7 @@ class UserControllerTest extends TestCase
     public function test_authenticated_tenant_user_can_list_users()
     {
         $this->markTestSkipped('Tenant operations require multi-tenant context with separate database');
-        
+
         // Note: Testing tenant user operations requires:
         // 1. Setting up a tenant database
         // 2. Switching to tenant context

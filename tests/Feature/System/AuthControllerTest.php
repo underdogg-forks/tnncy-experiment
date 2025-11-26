@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\System;
 
-use Tests\TestCase;
 use App\Models\System\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
 {
@@ -19,13 +19,13 @@ class AuthControllerTest extends TestCase
     public function test_user_can_login_with_valid_credentials()
     {
         $user = User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name'     => 'Test User',
+            'email'    => 'test@example.com',
             'password' => Hash::make('password123'),
         ]);
 
         $response = $this->postJson('/api/login', [
-            'email' => 'test@example.com',
+            'email'    => 'test@example.com',
             'password' => 'password123',
         ]);
 
@@ -46,13 +46,13 @@ class AuthControllerTest extends TestCase
     public function test_login_fails_with_invalid_password()
     {
         $user = User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name'     => 'Test User',
+            'email'    => 'test@example.com',
             'password' => Hash::make('password123'),
         ]);
 
         $response = $this->postJson('/api/login', [
-            'email' => 'test@example.com',
+            'email'    => 'test@example.com',
             'password' => 'wrongpassword',
         ]);
 
@@ -70,7 +70,7 @@ class AuthControllerTest extends TestCase
     public function test_login_fails_with_nonexistent_email()
     {
         $response = $this->postJson('/api/login', [
-            'email' => 'nonexistent@example.com',
+            'email'    => 'nonexistent@example.com',
             'password' => 'password123',
         ]);
 
@@ -103,7 +103,7 @@ class AuthControllerTest extends TestCase
     public function test_login_validation_fails_with_invalid_email_format()
     {
         $response = $this->postJson('/api/login', [
-            'email' => 'not-an-email',
+            'email'    => 'not-an-email',
             'password' => 'password123',
         ]);
 
@@ -134,8 +134,8 @@ class AuthControllerTest extends TestCase
     public function test_authenticated_user_can_get_user_details()
     {
         $user = User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name'     => 'Test User',
+            'email'    => 'test@example.com',
             'password' => Hash::make('password123'),
         ]);
 
@@ -172,8 +172,8 @@ class AuthControllerTest extends TestCase
     public function test_authenticated_user_can_logout()
     {
         $user = User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name'     => 'Test User',
+            'email'    => 'test@example.com',
             'password' => Hash::make('password123'),
         ]);
 
@@ -209,8 +209,8 @@ class AuthControllerTest extends TestCase
     public function test_authenticated_user_can_refresh_token()
     {
         $user = User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name'     => 'Test User',
+            'email'    => 'test@example.com',
             'password' => Hash::make('password123'),
         ]);
 

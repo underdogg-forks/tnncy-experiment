@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
-use Illuminate\Support\Str;
-use App\Models\System\User;
 use App\Models\System\Permission;
+use App\Models\System\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UsersSeeder extends Seeder
 {
@@ -17,13 +16,13 @@ class UsersSeeder extends Seeder
     {
         $permissions = Permission::where('guard_name', 'system')->get();
 
-        $user =   User::create([
-            'name' => 'Admin Name',
-            'email' => 'admin@mail.com',
+        $user = User::create([
+            'name'              => 'Admin Name',
+            'email'             => 'admin@mail.com',
             'email_verified_at' => now(),
-            'password' => 'password',
-            'remember_token' => Str::random(10),
-            ]);
+            'password'          => 'password',
+            'remember_token'    => Str::random(10),
+        ]);
         $user->givePermissionTo($permissions);
     }
 }

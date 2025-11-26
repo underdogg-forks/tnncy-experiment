@@ -2,31 +2,15 @@
 
 namespace Tests\Feature\System;
 
-use Tests\TestCase;
-use App\Models\System\User;
 use App\Models\System\Permission;
+use App\Models\System\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class PermissionsControllerTest extends TestCase
 {
     use RefreshDatabase;
-
-    /**
-     * Get authenticated user token.
-     *
-     * @return string
-     */
-    private function getAuthToken()
-    {
-        $user = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password123'),
-        ]);
-
-        return auth()->guard('system')->login($user);
-    }
 
     /**
      * Test that authenticated user can list permissions with guard filter.
@@ -38,17 +22,17 @@ class PermissionsControllerTest extends TestCase
         $token = $this->getAuthToken();
 
         Permission::create([
-            'name' => 'edit-users',
+            'name'       => 'edit-users',
             'guard_name' => 'system',
         ]);
 
         Permission::create([
-            'name' => 'view-reports',
+            'name'       => 'view-reports',
             'guard_name' => 'system',
         ]);
 
         Permission::create([
-            'name' => 'manage-content',
+            'name'       => 'manage-content',
             'guard_name' => 'tenant',
         ]);
 
@@ -72,12 +56,12 @@ class PermissionsControllerTest extends TestCase
         $token = $this->getAuthToken();
 
         Permission::create([
-            'name' => 'system-permission',
+            'name'       => 'system-permission',
             'guard_name' => 'system',
         ]);
 
         Permission::create([
-            'name' => 'tenant-permission',
+            'name'       => 'tenant-permission',
             'guard_name' => 'tenant',
         ]);
 
@@ -129,7 +113,7 @@ class PermissionsControllerTest extends TestCase
         $token = $this->getAuthToken();
 
         Permission::create([
-            'name' => 'test-permission',
+            'name'       => 'test-permission',
             'guard_name' => 'system',
         ]);
 
@@ -138,5 +122,21 @@ class PermissionsControllerTest extends TestCase
         ])->getJson('/api/permissions');
 
         $response->assertStatus(200);
+    }
+
+    /**
+     * Get authenticated user token.
+     *
+     * @return string
+     */
+    private function getAuthToken()
+    {
+        $user = User::create([
+            'name'     => 'Admin User',
+            'email'    => 'admin@example.com',
+            'password' => Hash::make('password123'),
+        ]);
+
+        return auth()->guard('system')->login($user);
     }
 }

@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers\System;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Controller;
-
-class ConfigController extends Controller
+class ConfigBasicController
 {
     protected $tenancy;
 
@@ -17,6 +14,7 @@ class ConfigController extends Controller
     public function checkTenant()
     {
         $hostname = $this->tenancy->hostname();
-        return $hostname ?  response()->json(true) :  response()->json(false);
+
+        return $hostname ? response()->json(true) : response()->json(false);
     }
 }

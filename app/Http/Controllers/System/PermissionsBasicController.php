@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\System;
 
-use App\Http\Controllers\Controller;
 use App\Models\System\Permission;
 use Illuminate\Http\Request;
 
-class PermissionsController extends Controller
+class PermissionsBasicController
 {
-
     /**
      * Display a listing of the resource.
      *

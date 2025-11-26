@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Tenant;
 
-use Tests\TestCase;
 use App\Models\Tenant\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
 {
@@ -19,7 +18,7 @@ class AuthControllerTest extends TestCase
     public function test_tenant_user_can_login_with_valid_credentials()
     {
         $this->markTestSkipped('Tenant authentication requires multi-tenant context with separate database');
-        
+
         // Note: Testing tenant authentication requires:
         // 1. Setting up a tenant database
         // 2. Switching to tenant context
@@ -134,9 +133,9 @@ class AuthControllerTest extends TestCase
      */
     public function test_guard_method_returns_tenant_guard()
     {
-        $controller = new \App\Http\Controllers\Tenant\AuthController();
-        $guard = $controller->guard();
-        
+        $controller = new \App\Http\Controllers\Tenant\AuthBasicController();
+        $guard      = $controller->guard();
+
         $this->assertEquals('tenant', $guard->getName());
     }
 }

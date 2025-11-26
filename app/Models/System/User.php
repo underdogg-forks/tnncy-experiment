@@ -2,17 +2,18 @@
 
 namespace App\Models\System;
 
+use Hyn\Tenancy\Traits\UsesSystemConnection;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Notifications\Notifiable;
-use Hyn\Tenancy\Traits\UsesSystemConnection;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, UsesSystemConnection, HasRoles;
+    use HasRoles;
+    use Notifiable;
+    use UsesSystemConnection;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password',
     ];
 
     /**
@@ -61,15 +62,11 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-
     /**
-     * function of mutator json array type of column keywords_en
-     *
-     *
-     * @return formatted value
+     * function of mutator json array type of column keywords_en.
      */
-    public function setPasswordAttribute($value)
+    public function setPasswordAttribute($value): void
     {
-        $this->attributes['password'] =  Hash::make($value);
+        $this->attributes['password'] = Hash::make($value);
     }
 }

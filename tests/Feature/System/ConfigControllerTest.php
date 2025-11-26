@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\System;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ConfigControllerTest extends TestCase
 {
@@ -42,7 +42,7 @@ class ConfigControllerTest extends TestCase
     public function test_check_tenant_returns_true_in_tenant_context()
     {
         $this->markTestSkipped('Testing tenant context requires multi-tenant setup with hostname configuration');
-        
+
         // Note: To test tenant context, we would need to:
         // 1. Create a Website and Hostname
         // 2. Set up the tenant database

@@ -97,10 +97,10 @@ All code must follow PSR-2/PSR-12 standards:
 
 namespace App\Http\Controllers\System;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BasicController;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends BasicController
 {
     /**
      * Display a listing of users.
@@ -165,7 +165,7 @@ use Illuminate\Support\Facades\Auth;
 use Hyn\Tenancy\Environment;
 
 // Application
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BasicController;
 use App\Models\System\Customer;
 use App\Models\System\User;
 ```

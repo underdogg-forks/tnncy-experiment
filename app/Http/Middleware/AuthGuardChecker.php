@@ -12,11 +12,11 @@ class AuthGuardChecker
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
      */
     public function handle(Request $request, Closure $next, ?string $guard = null): Response
     {
-        if (! Auth::guard($guard)->check()) {
+        if ( ! Auth::guard($guard)->check()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
