@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTenantPermissionTables extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         $tableNames  = config('permission.table_names');
@@ -92,11 +87,6 @@ class CreateTenantPermissionTables extends Migration
             ->forget(config('permission.cache.key'));
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         $tableNames = config('permission.table_names');

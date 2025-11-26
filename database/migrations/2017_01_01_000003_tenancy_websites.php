@@ -27,6 +27,9 @@ class TenancyWebsites extends AbstractMigration
 
             $table->string('uuid');
 
+            $table->string('managed_by_database_connection')
+                ->nullable()
+                ->comment('References the database connection key in your database.php');
             $table->timestamps();
             $table->softDeletes();
         });
