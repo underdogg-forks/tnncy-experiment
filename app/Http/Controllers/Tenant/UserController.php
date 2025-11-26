@@ -12,6 +12,9 @@ class UserController extends Controller
     private function getUser($id)
     {
         $user = User::find($id);
+        if (!$user) {
+            abort(404, 'User not found');
+        }
         $permissions =  $user->getAllPermissions()->pluck('id');
         return ['user' => $user,'permissions' => $permissions];
     }
