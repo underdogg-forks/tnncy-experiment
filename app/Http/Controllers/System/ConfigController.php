@@ -3,13 +3,20 @@
 namespace App\Http\Controllers\System;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ConfigController extends Controller
 {
+    protected $tenancy;
+
+    public function __construct(\Hyn\Tenancy\Environment $tenancy)
+    {
+        $this->tenancy = $tenancy;
+    }
+
     public function checkTenant()
     {
-        $hostname = app(\Hyn\Tenancy\Environment::class)->hostname();
+        $hostname = $this->tenancy->hostname();
         return $hostname ?  response()->json(true) :  response()->json(false);
     }
 }
