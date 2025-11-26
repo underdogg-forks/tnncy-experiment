@@ -67,9 +67,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|unique:users,email,' . $id,
+            'password' => 'sometimes|string|min:8',
+            'permissions' => 'array',
+            'permissions.*' => 'exists:permissions,id'
+        ]);
+        
         $permissions = Permission::whereIn('id', $request->permissions)->get();
         $user = User::find($id);
-        $user->update($request->all());
+        if (!$user) {
+            abort(404, 'User not found');
+        }
+        $user->update($validated);
         $user->syncPermissions($permissions);
         return $user;
     }
@@ -82,6 +93,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        if (!$user) {
+            abort(404, 'User not found');
+        }
+        $user->syncPermissions([]);
         $user->delete();
         return 'Deleted';
     }

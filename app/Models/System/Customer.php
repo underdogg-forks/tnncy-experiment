@@ -10,7 +10,10 @@ class Customer extends Model
 {
     use  UsesSystemConnection, HasRoles;
 
-    protected $guarded = [];
+    // Guard primary key and any sensitive attributes
+    protected $guarded = ['id'];
+    // Or explicitly whitelist:
+    // protected $fillable = ['name', 'email', '...'];
     
     public function hostname()
     {
